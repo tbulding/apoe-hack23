@@ -36,7 +36,7 @@ def addBoilerplate(repo_path, boilerplate_path):
     repo = git.Repo(repo_path)
     repo.git.submodule('add', boilerplate_path, "docs/boilerplate")
     subprocess.run(
-        "./docs/boilerplate/.utils/create_repo_structure.sh -d -c", shell=True, cwd=repo_path)
+        "./docs/boilerplate/.utils/create_repo_structure.sh -d -c", cwd=repo_path)
     repo.git.commit(m='Adding skeleton for docs-as-code')
     try:
         repo.git.push('--set-upstream', 'origin', 'doc-edits')
@@ -147,7 +147,7 @@ def main():
             repo_path._str, config_items['boilerplate_url'])
         # Copy the temp files to the repo
         subprocess.call("cp -r " + config_items['temp_folder'] +
-                        "/" + repo_name + "/.tmp " + repo_path._str, shell=True)
+                        "/" + repo_name + "/.tmp " + repo_path._str)
         print('tmp copied to repo')
 
     except ValueError as ve:
