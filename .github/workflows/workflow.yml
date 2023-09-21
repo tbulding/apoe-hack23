@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  S3bucket_CodeGuru: codeguru-reviewer-apoe-hack23 # S3 Bucket with "codeguru-reviewer-*" prefix
+  S3bucket_CodeGuru: codeguru-reviewer-tb-test # S3 Bucket with "codeguru-reviewer-*" prefix
 
 jobs:
   
