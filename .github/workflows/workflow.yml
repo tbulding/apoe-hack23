@@ -24,7 +24,7 @@ jobs:
         # if: ${{ always() }} #  This ensures that your workflow runs successfully
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          # role-to-assume: arn:aws:iam::503759272940:role/ephemeral/ephemeral-action-webhook-lambda-role
+          role-to-assume: arn:aws:iam::503759272940:role/ephemeral/ephemeral-runner-role
           aws-region: us-east-1
       # Run CodeGuru Reviewer
       # - name: Step 3 - CodeGuru Reviewer
