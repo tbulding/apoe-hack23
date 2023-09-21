@@ -22,7 +22,7 @@ jobs:
       # Configure aws credentials to access the repo
       - name: Step 2 - Configure AWS Credentials
         # if: ${{ always() }} #  This ensures that your workflow runs successfully
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: arn:aws:iam::503759272940:role/ephemeral/ephemeral-runner-role
           aws-region: us-east-1
