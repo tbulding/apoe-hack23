@@ -35,8 +35,8 @@ def addBoilerplate(repo_path, boilerplate_path):
     # Add boilerplate to the repo
     repo = git.Repo(repo_path)
     repo.git.submodule('add', boilerplate_path, "docs/boilerplate")
-    subprocess.run(
-        "./docs/boilerplate/.utils/create_repo_structure.sh -d -c", cwd=repo_path)
+    # subprocess.run(
+    #     "./docs/boilerplate/.utils/create_repo_structure.sh -d -c", cwd=repo_path)
     repo.git.commit(m='Adding skeleton for docs-as-code')
     try:
         repo.git.push('--set-upstream', 'origin', 'doc-edits')
