@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  AWS_REGION: us-east-1
-  S3bucket_CodeGuru: codeguru-reviewer-tb-test # S3 Bucket with "codeguru-reviewer-*" prefix
-
 jobs:
   
   build:
@@ -26,31 +22,20 @@ jobs:
       # Configure aws credentials to access the repo
       - name: Step 2 - Configure AWS Credentials
         if: ${{ always() }} #  This ensures that your workflow runs successfully
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::503759272940:role/ephemeral/ephemeral-action-webhook-lambda-role
+          aws-region: us-east-1
       # Run CodeGuru Reviewer
       - name: Step 3 - CodeGuru Reviewer
         uses: aws-actions/codeguru-reviewer@v1.1
         if: ${{ always() }}
         with:
-          build_path: . #target # build artifact(s) directory
-          s3_bucket: ${{ env.S3bucket_CodeGuru }} 
+          build_path: target # build artifact(s) directory
+          s3_bucket: codeguru-reviewer-apoe-hack23 # S3 Bucket with "codeguru-reviewer-*" prefix
       # Upload results to GitHub
       - name: Step 4 - Upload review result
         if: ${{ github.event_name != 'push' }}
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: codeguru-results.sarif.json # Your results file will be named codeguru-results.sarif.json
-      # # Run CodeGuru Security
-      - name: Step 5 - CodeGuru Security
-        uses: aws-actions/codeguru-security@v1
-        with:
-          source_path: .
-          aws_region: ${{ env.AWS_REGION }}
-          fail_on_severity: Critical
-      # Upload results to GitHub
-      - name: Step 6 - Upload result
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: codeguru-security-results.sarif.json
