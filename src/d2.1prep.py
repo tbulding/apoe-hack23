@@ -76,7 +76,8 @@ def cloneRepo(repourl, repo_path):
 
     # Clone the Repository
     if repo_path.exists() and repo_path.is_dir():
-        subprocess.call(['rm', '-rf', repo_path])
+       ''
+       # subprocess.call(['rm', '-rf', repo_path])
     # else:
     Repo.clone_from(
         url=repourl,
@@ -146,8 +147,8 @@ def main():
         orphan = addBoilerplate(
             repo_path._str, config_items['boilerplate_url'])
         # Copy the temp files to the repo
-        subprocess.call("cp -r " + config_items['temp_folder'] +
-                        "/" + repo_name + "/.tmp " + repo_path._str)
+        # subprocess.call("cp -r " + config_items['temp_folder'] +
+        #                 "/" + repo_name + "/.tmp " + repo_path._str)
         print('tmp copied to repo')
 
     except ValueError as ve:
