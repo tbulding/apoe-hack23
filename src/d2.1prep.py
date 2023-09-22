@@ -35,8 +35,8 @@ def addBoilerplate(repo_path, boilerplate_path):
     # Add boilerplate to the repo
     repo = git.Repo(repo_path)
     repo.git.submodule('add', boilerplate_path, "docs/boilerplate")
-    # subprocess.run(
-    #     "./docs/boilerplate/.utils/create_repo_structure.sh -d -c", cwd=repo_path)
+    subprocess.run(
+        "./docs/boilerplate/.utils/create_repo_structure.sh -d -c", cwd=repo_path)
     repo.git.commit(m='Adding skeleton for docs-as-code')
     try:
         repo.git.push('--set-upstream', 'origin', 'doc-edits')
@@ -76,7 +76,8 @@ def cloneRepo(repourl, repo_path):
 
     # Clone the Repository
     if repo_path.exists() and repo_path.is_dir():
-        subprocess.call(['rm', '-rf', repo_path])
+       ''
+       subprocess.call(['rm', '-rf', repo_path])
     # else:
     Repo.clone_from(
         url=repourl,
